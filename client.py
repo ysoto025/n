@@ -20,7 +20,7 @@ except sock.gaierror as err:
 file = open(argv[3], "rb")
 accio = ""
 
-self.sock.recv(5).decode("utf-8")
+sock.recv(5).decode("utf-8")
 while True:
 
     send = file.read(2048)
