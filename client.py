@@ -6,10 +6,13 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
 
-if len(argv) < 4:
+if len(argv) < 3:
     print("missing arguments")
     sys.exit()
-
+try:
+    socket.gethostbyname(argv[1])
+except socket.error:
+    sys.exit()
 
 try:
     sock.connect((argv[1], int(argv[2])))
@@ -25,8 +28,8 @@ while True:
     send = file.read(2048)
     if len(send) < 1:
         break
-    sock.send(send)
 
+sock.send(send)
 file.close()
 
 sock.close()
