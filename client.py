@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 
 import sys
 import socket
@@ -18,18 +17,13 @@ except sock.gaierror as err:
     print("Could not connect to host due error:" + err)
 
 file = open(argv[3], "rb")
-accio = ""
-
-sock.recv(5).decode("utf-8")
+print("accio", file=sys.stderr)
 while True:
 
     send = file.read(2048)
     if len(send) < 1:
         break
     sock.send(send)
-
-
-
 file.close()
 
 sock.close()
