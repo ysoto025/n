@@ -5,8 +5,9 @@ from sys import argv
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
-print (argv)
-if len(argv) < 4:
+
+if (len(argv) < 4) | (len(argv) > 4):
+    print("missing arguments or too many Arguments")
     sys.exit()
 
 if argv[1] == "":
@@ -17,11 +18,14 @@ else:
     except socket.error:
         sys.exit()
 
+if argv[2] == "":
+    sys.exit()
+
 try:
     sock.connect((argv[1], int(argv[2])))
     print("It connected")
 except socket.error:
-    print("Could not connect to host due error:")
+    print("Could not connect to port error")
     sys.exit()
 
 file = open(argv[3], "rb")
