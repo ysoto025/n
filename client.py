@@ -13,7 +13,7 @@ if (len(argv) < 4) | (len(argv) > 4):
 
 if (argv[1] == ""):
     sys.stderr.write("ERROR: empty string")
-    sys.exit()
+    sys.exit(1)
 else:
     try:
         socket.gethostbyname(argv[1])
@@ -23,17 +23,17 @@ else:
 
 if argv[2] == "":
     sys.stderr.write("ERROR: empty string")
-    sys.exit()
+    sys.exit(1)
 
 if (int(argv[2]) < 0) | (int(argv[2]) > 65535):
     sys.stderr.write("ERROR: Overflow error")
-    sys.exit()
+    sys.exit(1)
 
 try:
     sock.connect((argv[1], int(argv[2])))
 except socket.error:
     sys.stderr.write("ERROR: wrong port")
-    sys.exit()
+    sys.exit(1)
 
 file = open(argv[3], "rb")
 
