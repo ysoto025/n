@@ -24,7 +24,7 @@ else:
 if argv[2] == "":
     sys.stderr.write("ERROR: empty string")
     sys.exit()
-elif int(argv[2]) <0 | int(argv[2] > 65535):
+elif int(argv[2]) < 0 | int(argv[2]) > 65535:
     sys.stderr.write("ERROR: Overflow error")
     sys.exit(1)
 
