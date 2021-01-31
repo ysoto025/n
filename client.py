@@ -6,7 +6,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
 
-print (len(argv))
+
 if (len(argv) < 4) | (len(argv) > 4):
     sys.stderr.write("missing arguments or too many Arguments")
     sys.exit()
@@ -24,9 +24,10 @@ else:
 if argv[2] == "":
     sys.stderr.write("ERROR: empty string")
     sys.exit()
-elif int(argv[2]) < 0 | int(argv[2]) > 65535:
+
+if (int(argv[2]) < 0) | (int(argv[2]) > 65535):
     sys.stderr.write("ERROR: Overflow error")
-    sys.exit(1)
+    sys.exit()
 
 try:
     sock.connect((argv[1], int(argv[2])))
