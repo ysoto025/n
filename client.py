@@ -25,11 +25,12 @@ file = open(argv[3], "rb")
 sock.recv(5).decode("utf-8")
 while True:
 
-    send = file.read(2048)
+    send = file.read(600000000)
     if len(send) < 1:
         break
+    sock.send(send)
 
-sock.send(send)
+
 file.close()
 
 sock.close()
