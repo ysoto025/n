@@ -6,10 +6,13 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
 
-if len(argv) < 4:
-
+if len(argv) < 3:
     print("missing arguments")
     sys.exit()
+elif len(argv) > 3:
+    print("too many arguments")
+    sys.exit()
+
 try:
     sock.connect((argv[1], int(argv[2])))
     print("It connected")
