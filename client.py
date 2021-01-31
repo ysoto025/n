@@ -6,26 +6,28 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
 
+print (len(argv))
 if (len(argv) < 4) | (len(argv) > 4):
-    print("missing arguments or too many Arguments")
+    sys.stderr.write("missing arguments or too many Arguments")
     sys.exit()
 
-if argv[1] == "":
+if (argv[1] == ""):
+    sys.stderr.write("ERROR: empty string")
     sys.exit()
 else:
     try:
         socket.gethostbyname(argv[1])
     except socket.error:
+        sys.stderr.write("ERROR: wrong host")
         sys.exit()
 
 if argv[2] == "":
+    sys.stderr.write("ERROR: empty string")
     sys.exit()
-
 try:
     sock.connect((argv[1], int(argv[2])))
-    print("It connected")
 except socket.error:
-    print("Could not connect to port error")
+    sys.stderr.write("ERROR: wrong port")
     sys.exit()
 
 file = open(argv[3], "rb")
