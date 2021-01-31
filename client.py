@@ -19,7 +19,7 @@ else:
         socket.gethostbyname(argv[1])
     except socket.error:
         sys.stderr.write("ERROR: wrong host")
-        sys.exit()
+        sys.exit(1)
 
 if argv[2] == "":
     sys.stderr.write("ERROR: empty string")
