@@ -36,6 +36,7 @@ except socket.timeout:
     sys.stderr.write("ERROR: timeout")
     sys.exit(1)
 
+sock.settimeout(None)
 file = open(argv[3], "rb")
 
 sock.recv(5).decode("utf-8")
