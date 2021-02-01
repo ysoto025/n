@@ -40,7 +40,7 @@ except socket.timeout:
     sys.stderr.write("ERROR: timeout")
     sys.exit(1)
 
-#sock.settimeout(None)
+sock.settimeout(None)
 file = open(argv[3], "rb")
 
 sock.recv(2048)
@@ -49,9 +49,12 @@ while True:
     send = file.read(1)
     if len(send) < 1:
         break
-    sock.send(send)
+    try:
+        sock.send(send)
+    except socket.error:
+        sys.stderr.write("ERROR: timeout")
+        sys.exit(1)
 
-print("File sent")
 file.close()
 
 sock.close()
