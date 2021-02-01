@@ -28,20 +28,15 @@ if argv[2] == "":
 if (int(argv[2]) < 0) | (int(argv[2]) > 65535):
     sys.stderr.write("ERROR: Overflow error")
     sys.exit(1)
-mess = ""
+
 try:
-    #sock.settimeout(10.0)
+    sock.settimeout(10.0)
     sock.connect((argv[1], int(argv[2])))
-    mess = sock.recv(5).decode("utf-8")
-    if mess != "":
-        sys.stderr.write("ERROR: no data transmitted")
-    else:
-        print(mess)
-except socket.error:
+except socket.timeout:
     sys.stderr.write("ERROR: timeout")
-    sys.exit()
-    print("File sent")
-#sock.settimeout(none)
+    sys.exit(1)
+    
+sock.settimeout(none)
 file = open(argv[3], "rb")
 
 sock.recv(5).decode("utf-8")
