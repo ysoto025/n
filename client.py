@@ -33,7 +33,7 @@ try:
     #sock.settimeout(10.0)
     sock.connect((argv[1], int(argv[2])))
     mess = sock.recv(5).decode("utf-8")
-    if mess == "":
+    if mess != "":
         sys.stderr.write("ERROR: no data transmitted")
     else:
         print(mess)
