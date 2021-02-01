@@ -32,7 +32,7 @@ if (int(argv[2]) < 0) | (int(argv[2]) > 65535):
 try:
     sock.settimeout(10.0)
     sock.connect((argv[1], int(argv[2])))
-    sock.recv(2048)
+    sock.recv(5)
 except socket.error:
     sys.stderr.write("ERROR: data not received")
     sys.exit(1)
@@ -40,13 +40,13 @@ except socket.timeout:
     sys.stderr.write("ERROR: timeout")
     sys.exit(1)
 
-#sock.settimeout(None)
+sock.settimeout(None)
 file = open(argv[3], "rb")
 
-#sock.recv(2048)
+sock.recv(5)
 while True:
 
-    send = file.read(1)
+    send = file.read(600000)
     if len(send) < 1:
         break
     try:
