@@ -5,7 +5,7 @@ from sys import argv
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
-
+sock.settimeout(10.0)
 
 if (len(argv) < 4) | (len(argv) > 4):
     sys.stderr.write("missing arguments or too many Arguments")
@@ -31,9 +31,10 @@ if (int(argv[2]) < 0) | (int(argv[2]) > 65535):
 
 try:
     sock.connect((argv[1], int(argv[2])))
-except socket.error:
-    sys.stderr.write("ERROR: wrong port")
-    sys.exit(1)
+except socket.timeout:
+    sys.stderr.write("ERROR: timeout")
+    sys.exit()
+    print("File sent")
 
 file = open(argv[3], "rb")
 
@@ -45,7 +46,7 @@ while True:
         break
     sock.send(send)
 
-
+print("File sent")
 file.close()
 
 sock.close()
