@@ -52,8 +52,8 @@ while True:
     try:
         sock.send(send)
     except socket.error:
-        sys.stderr.write("ERROR: timeout")
-        sys.exit(1)
+        sys.stderr.write("ERROR: broken pipe")
+        sys.exit(0)
 
 file.close()
 
