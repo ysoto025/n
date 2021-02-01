@@ -4,7 +4,7 @@ import socket
 from sys import argv
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
+#sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
 
 
 if (len(argv) < 4) | (len(argv) > 4):
@@ -40,7 +40,7 @@ except socket.timeout:
 sock.settimeout(None)
 file = open(argv[3], "rb")
 
-sock.recv(5).decode("utf-8")
+sock.recv(1024).decode("utf-8")
 while True:
 
     send = file.read(600000000)
