@@ -40,7 +40,7 @@ except socket.timeout:
     sys.stderr.write("ERROR: timeout")
     sys.exit(1)
 
-
+sock.settimeout(None)
 file = open(argv[3], "rb")
 
 #data = sock.recv(2048)
