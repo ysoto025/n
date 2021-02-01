@@ -33,6 +33,7 @@ try:
     sock.settimeout(10.0)
     sock.connect((argv[1], int(argv[2])))
 except socket.timeout:
+    socket.close()
     sys.stderr.write("ERROR: timeout")
     sys.exit(1)
 
