@@ -43,15 +43,19 @@ file = open(argv[3], "rb")
 
 mySocket.recv(5)
 
+header1 = "Content-Disposition: attachment; filename= " + argv[3] + "\r\n "
+header2 = "Content-Type: application/octet-stream\r\n"
+header3 = "Content-Length: {0}\r\n\r\n".format(os.path.getsize(file))
+mySocket.send(header1)
+mySocket.send(header2)
+mySocket.send(header3)
+
 while True:
 
     send = file.read(600000)
     if len(send) < 1:
         break
     try:
-        mySocket.send("Content-Disposition: attachment; filename= " + argv[3] + "\r\n")
-        mySocket.send("Content-Type: application/octet-stream\r\n")
-        mySocket.send("Content-Length: {0}\r\n\r\n".format(os.path.getsize(file)))
         mySocket.send(send)
     except socket.error:
         sys.stderr.write("ERROR: broken pipe")
