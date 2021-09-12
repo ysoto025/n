@@ -39,13 +39,14 @@ except socket.timeout:
     sys.exit(1)
 
 mySocket.settimeout(None)
+fileName = argv[3]
 file = open(argv[3], "rb")
-
+fileStats = os.stat(fileName)
 mySocket.recv(5)
 
 header1 = "Content-Disposition: attachment; filename= " + argv[3] + "\r\n "
 header2 = "Content-Type: application/octet-stream\r\n"
-header3 = "Content-Length: {0}\r\n\r\n".format(os.path.getsize(file))
+header3 = "Content-Length: {0}\r\n\r\n".format(fileStats.st_size)
 mySocket.send(header1)
 mySocket.send(header2)
 mySocket.send(header3)
