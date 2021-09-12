@@ -47,9 +47,9 @@ mySocket.recv(5)
 header1 = "Content-Disposition: attachment; filename= " + argv[3] + "\r\n "
 header2 = "Content-Type: application/octet-stream\r\n"
 header3 = "Content-Length: {0}\r\n\r\n".format(fileStats.st_size)
-mySocket.send(header1)
-mySocket.send(header2)
-mySocket.send(header3)
+mySocket.send(bytes(header1))
+mySocket.send(bytes(header2))
+mySocket.send(bytes(header3))
 
 while True:
 
