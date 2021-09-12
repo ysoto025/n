@@ -1,4 +1,4 @@
-
+import os
 import sys
 import socket
 from sys import argv
@@ -27,8 +27,6 @@ if argv[2] == "":
     sys.stderr.write("ERROR: empty string")
     sys.exit(1)
 
-
-
 try:
     mySocket.settimeout(10.0)
     mySocket.connect((argv[1], int(argv[2])))
@@ -44,12 +42,16 @@ mySocket.settimeout(None)
 file = open(argv[3], "rb")
 
 mySocket.recv(5)
+
 while True:
 
     send = file.read(600000)
     if len(send) < 1:
         break
     try:
+        mySocket.send("Content-Disposition: attachment; filename= " + argv[3] + "\r\n")
+        mySocket.send("Content-Type: application/octet-stream\r\n")
+        mySocket.send("Content-Length: {0}\r\n\r\n".format(os.path.getsize(file)))
         mySocket.send(send)
     except socket.error:
         sys.stderr.write("ERROR: broken pipe")
